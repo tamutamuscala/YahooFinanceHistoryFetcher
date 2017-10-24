@@ -38,10 +38,12 @@ scalaVersion := "2.12.3"
 
 crossScalaVersions := Seq("2.11.11")
 
+val akkaHttp = "10.0.10"
+
 libraryDependencies ++= Seq(
   "com.google.inject" % "guice" % "4.1.0",
-  "com.typesafe.akka" %% "akka-http" % "10.0.9",
-  "com.typesafe.akka" %% "akka-http-testkit" % "10.0.9" % Test,
+  "com.typesafe.akka" %% "akka-http" % akkaHttp,
+  "com.typesafe.akka" %% "akka-http-testkit" % akkaHttp % Test,
   "org.scalatest" %% "scalatest" % "3.0.1" % Test
 )
 
