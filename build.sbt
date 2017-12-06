@@ -38,15 +38,29 @@ scalaVersion := "2.12.3"
 
 crossScalaVersions := Seq("2.11.11")
 
-val akkaHttp = "10.0.10"
+val catsVersion = "1.0.0-RC1"
+val akkaHttpVersion = "10.0.10"
+val monocleVersion = "1.4.0"
 
 libraryDependencies ++= Seq(
   "com.google.inject" % "guice" % "4.1.0",
-  "com.typesafe.akka" %% "akka-http" % akkaHttp,
-  "com.typesafe.akka" %% "akka-http-testkit" % akkaHttp % Test,
+  "org.typelevel" %% "cats-core" % catsVersion,
+  "org.typelevel" %% "cats-macros" % catsVersion,
+  "org.typelevel" %% "cats-kernel" % catsVersion,
+  "org.typelevel" %% "cats-free" % catsVersion,
+  "org.typelevel" %% "cats-effect" % "0.5",
+  "org.typelevel" %% "cats-effect-laws" % "0.5" % Test,
+  "org.typelevel" %% "cats-laws" % catsVersion % Test,
+  "org.typelevel" %% "cats-testkit" % catsVersion % Test,
+  "com.github.julien-truffaut" %% "monocle-core" % monocleVersion,
+  "com.github.julien-truffaut" %% "monocle-macro" % monocleVersion,
+  "com.github.julien-truffaut" %% "monocle-law" % monocleVersion % Test,
+  "com.typesafe.akka" %% "akka-http" % akkaHttpVersion,
+  "com.typesafe.akka" %% "akka-http-testkit" % akkaHttpVersion % Test,
   "org.scalatest" %% "scalatest" % "3.0.1" % Test
 )
 
+scalacOptions += "-Ypartial-unification"
 scalacOptions in Test ++= Seq("-Yrangepos")
 publishArtifact in Test := false
 fork in Test := true

@@ -4,16 +4,19 @@ import akka.actor.{ActorRefFactory, ActorSystem}
 import akka.stream.{ActorMaterializer, ActorMaterializerSettings, Materializer}
 import com.google.inject._
 import com.typesafe.config.{Config, ConfigFactory}
+import repo.StockDAOModule
+import repo.utils.AkkaHttpUtilsModule
 
 import scala.concurrent.ExecutionContext
 
 // injector
-object App {
+//TODO: change name to application injector
+object Injector {
   val globalInjector = Guice.createInjector(
     ConfigModule("resources/application.conf"),
     ActorSystemModule(ActorSystem("GLOBAL")),
     AkkaHttpUtilsModule(),
-    FetcherModule()
+    StockDAOModule()
   )
 }
 
