@@ -25,30 +25,30 @@ trait AkkaHttpClientUtils {
 }
 
 @Singleton
-case class AkkaHttpClientUtilsImpl @Inject()
-(implicit materializer: Materializer,
- executionContext: ExecutionContext) extends AkkaHttpClientUtils {
+case class AkkaHttpClientUtilsImpl @Inject()(
+  implicit materializer: Materializer,
+  executionContext: ExecutionContext
+) extends AkkaHttpClientUtils {
 
-  override
-  def getCookies(httpResponse: HttpResponse): Future[Seq[String]] = Future {
-    httpResponse.headers
-    .filter(_.name == "set-cookie")
-    .map(_.value)
-    .head
-    .split("; ")
-    .toSeq
+  override def getCookies(httpResponse: HttpResponse): Future[Seq[String]] = {
+    Future {
+      httpResponse.headers
+        .filter(_.name == "set-cookie")
+        .map(_.value)
+        .head
+        .split("; ")
+        .toSeq
+    }
   }
 
-  override
-  def getBody(httpResponse: HttpResponse): Future[String] = {
+  override def getBody(httpResponse: HttpResponse): Future[String] = {
     httpResponse.entity.toStrict(20 seconds).map(_.data.utf8String)
   }
 }
 
 case class AkkaHttpUtilsModule() extends AbstractModule {
 
-  override
-  def configure(): Unit = {
+  override def configure(): Unit = {
     bind(classOf[AkkaHttpClientUtils]).to(classOf[AkkaHttpClientUtilsImpl])
   }
 }

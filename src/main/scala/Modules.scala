@@ -4,7 +4,7 @@ import akka.actor.{ActorRefFactory, ActorSystem}
 import akka.stream.{ActorMaterializer, ActorMaterializerSettings, Materializer}
 import com.google.inject._
 import com.typesafe.config.{Config, ConfigFactory}
-import repo.StockDAOModule
+import repo.StockDaoModule
 import repo.utils.AkkaHttpUtilsModule
 
 import scala.concurrent.ExecutionContext
@@ -16,7 +16,7 @@ object Injector {
     ConfigModule("resources/application.conf"),
     ActorSystemModule(ActorSystem("GLOBAL")),
     AkkaHttpUtilsModule(),
-    StockDAOModule()
+    StockDaoModule()
   )
 }
 
